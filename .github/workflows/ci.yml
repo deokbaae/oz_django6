@@ -24,7 +24,7 @@ jobs:
 
   #    - name: Set timezone to KST (TODO)
 
-  #    - name: Start Mysql
+  #    - name: Start Mysql gdgd
 
       - name: Install Poetry
         run: |
