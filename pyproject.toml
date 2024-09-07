@@ -12,12 +12,30 @@ django = "^5.1.1"
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 isort = "^5.13.2"
+mypy = "^1.11.2"
+django-stubs = "^5.0.4"
 
 [tool.black]
 line-length = 120
 
 [tool.isort]
 profile = "black"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+python_version = 3.12
+strict = true
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "manage"
+ignore_errors = true
+
+[tool.django-stubs]
+django_settings_module = "oz_django6.settings"
 
 [build-system]
 requires = ["poetry-core"]
