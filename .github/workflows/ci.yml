@@ -1,0 +1,48 @@
+name: Django Ci
+
+on:
+  push:
+
+
+jobs:
+  ci:
+    runs-on: ubuntu-20.04
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_DATABASE: oz_django
+  steps:
+    - name: Checkout the codes
+      uses: actions/checkout@v2
+
+    - name: Setup python environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.12
+
+#    - name: Set timezone to KST (TODO)
+
+#    - name: Start Mysql
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "${HOME}/.local/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+          poetry install --no-root
+
+    - name: Run black
+      run: |
+        poetry run black . --check
+
+    - name: Run isort
+      run: |
+        poetry run isort . --check --diff
+
+    - name: Run Mypy
+      run: |
+        poetry run mypy .
