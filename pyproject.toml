@@ -8,12 +8,16 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.1.1"
+pymysql = "^1.1.1"
+cryptography = "^43.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 isort = "^5.13.2"
 mypy = "^1.11.2"
 django-stubs = "^5.0.4"
+coverage = "^7.6.1"
+types-pymysql = "^1.1.0.20240524"
 
 [tool.black]
 line-length = 120
@@ -36,6 +40,16 @@ ignore_errors = true
 
 [tool.django-stubs]
 django_settings_module = "oz_django6.settings"
+
+[tool.coverage.report]
+fail_under = 80
+
+[tool.coverage.run]
+omit = [
+  ".mypy_cache/**/*",
+  "*/migrations/*",
+  "*/*test*.py",
+]
 
 [build-system]
 requires = ["poetry-core"]
