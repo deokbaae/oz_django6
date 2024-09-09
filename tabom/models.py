@@ -23,6 +23,9 @@ class Like(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["user", "article"], name="UIX_like_user_id_article_id")]
+
     @classmethod
     def do_like(cls, user_id: int, article_id: int) -> "Like":
         return cls.objects.create(user_id=user_id, article_id=article_id)
